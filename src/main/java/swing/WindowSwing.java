@@ -1,14 +1,14 @@
+package swing;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.fxml.FXMLLoader;
+import salary.Worker;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -51,11 +51,11 @@ public class WindowSwing implements ActionListener {
 //        salaryField.addActionListener(this);
         buttonAdd.addActionListener(this);
 
-        try {
+   /*     try {
             workers = getAllWorkers();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
         for(Worker www : workers){
             JLabel label = new JLabel(www.getName()
                     + " " + www.getSurname()
@@ -88,7 +88,7 @@ public class WindowSwing implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Добавить")) {
             AddWorkerFrame addWorkerFrame = new AddWorkerFrame();
-//            Worker worker = new Worker();
+//            salary.Worker worker = new salary.Worker();
 //            worker.setName(nameField.getText());
 //            worker.setSurname(surnameField.getText());
 //            worker.setSalary(Double.parseDouble(salaryField.getText()));

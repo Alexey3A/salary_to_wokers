@@ -1,7 +1,9 @@
+package swing;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
+import salary.Worker;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 public class WorkerPanel extends JPanel implements ActionListener {
 
     Worker worker;
-    //    ArrayList<Worker> wL;
+    //    ArrayList<salary.Worker> wL;
 //    JFrame jF;
     JPanel p = new JPanel();
 
