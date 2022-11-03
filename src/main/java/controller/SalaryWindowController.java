@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import salary.WPanel;
@@ -22,7 +24,14 @@ import java.util.Scanner;
 public class SalaryWindowController {
     @FXML
     private Button buttonAdd;
-
+    @FXML
+    private Button buttonAdd1;
+    @FXML
+    private Button sourceSave;
+    @FXML
+    private TextArea sourceName;
+    @FXML
+    private TextField sourceSum;
     @FXML
     private static VBox box;
 
@@ -32,7 +41,7 @@ public class SalaryWindowController {
     public SalaryWindowController() {
     }
 
-    public void onClickButtonAdd(){
+    public void onClickButtonAdd() {
         buttonAdd.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -51,6 +60,37 @@ public class SalaryWindowController {
         });
     }
 
+    public void addSalarySource(Stage stage) {
+        buttonAdd1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("../new_a_salary_source.fxml"));
+                try {
+                    Scene scene = new Scene(fxmlLoader.load(), 200, 200);
+                    Stage stage = new Stage();
+                    stage.setTitle("Источник зарплаты");
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                sourceSave.setOnAction(event -> {
+
+                });
+            }
+        });
+    }
+
+//TODO
+public void onClickSourceSave(){
+        sourceSave.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+            }
+        });
+}
     public static ArrayList<Worker> getAllWorkers() throws FileNotFoundException {
         ObjectMapper objectMapper = new ObjectMapper();
         ArrayList<Worker> workers = new ArrayList<>();
