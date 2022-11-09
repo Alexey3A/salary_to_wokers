@@ -1,5 +1,6 @@
 package controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,9 +13,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import salary.SalarySource;
 import salary.WPanel;
 import salary.Worker;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,9 +38,10 @@ public class SalaryWindowController {
     private TextField sourceSum;
     @FXML
     private static VBox box;
-
     @FXML
     private static ScrollPane scrollPane;
+    @FXML
+    private static ScrollPane salaryField;
 
     public SalaryWindowController() {
     }
@@ -60,7 +65,7 @@ public class SalaryWindowController {
         });
     }
 
-    public void addSalarySource(Stage stage) {
+    public void addSalarySource() {
         buttonAdd1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -75,22 +80,31 @@ public class SalaryWindowController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                sourceSave.setOnAction(event -> {
-
-                });
             }
         });
     }
 
-//TODO
-public void onClickSourceSave(){
+    public void onClickSourceSave() {
         sourceSave.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                SalarySource salarySource = new SalarySource();
+                salarySource.setSalarySourceName(sourceName.getText());
+                salarySource.setSalarySourceSum(Double.parseDouble(sourceSum.getText()));
+                try {
+                    salarySource.addAnSalarySource(salarySource, new File("salarySource.txt"));
+                } catch (FileNotFoundException | JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
+                Stage stage = (Stage)sourceSave.getScene().getWindow();
+                stage.close();
 
+//                Stage stage1 = (Stage)sourceSave.getScene().getWindow();
+//                sourceSave.setOnAction(event -> stage1.fireEvent(new WindowEvent(stage1, WindowEvent.WINDOW_CLOSE_REQUEST)));;
             }
         });
-}
+    }
+
     public static ArrayList<Worker> getAllWorkers() throws FileNotFoundException {
         ObjectMapper objectMapper = new ObjectMapper();
         ArrayList<Worker> workers = new ArrayList<>();
