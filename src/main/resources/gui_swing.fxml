@@ -7,13 +7,12 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="box" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SalaryWindowController">
+<VBox fx:id="box" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SalaryWindowController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -54,35 +53,52 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="437.0" prefWidth="688.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="500.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
       <children>
-            <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="44.0" prefHeight="312.0" prefWidth="457.0">
-               <content>
-                  <VBox prefHeight="311.0" prefWidth="455.0">
-                     <children>
-                        <Pane prefHeight="44.0" prefWidth="455.0">
-                           <children>
-                              <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="209.0" text="Label" />
-                              <Button layoutX="317.0" layoutY="10.0" mnemonicParsing="false" text="Button" />
-                              <Button layoutX="380.0" layoutY="10.0" mnemonicParsing="false" text="Button" />
-                              <TextField layoutX="235.0" layoutY="10.0" prefHeight="25.0" prefWidth="71.0" />
-                           </children>
-                        </Pane>
-                     </children>
-                  </VBox>
-               </content>
-            </ScrollPane>
+            <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="44.0" prefHeight="345.0" prefWidth="647.0" />
             <Button fx:id="buttonAdd" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#onClickButtonAdd" text="Добавить работника">
                <font>
                   <Font size="11.0" />
                </font>
             </Button>
-            <Button fx:id="buttonAdd1" layoutX="486.0" layoutY="14.0" mnemonicParsing="false" onAction="#addSalarySource" text="Добавить источник зп">
+            <Button fx:id="buttonAdd1" layoutX="667.0" layoutY="14.0" mnemonicParsing="false" onAction="#addSalarySource" text="Добавить источник зп">
                <font>
                   <Font size="11.0" />
                </font>
             </Button>
-            <ScrollPane fx:id="salaryField" layoutX="476.0" layoutY="44.0" prefHeight="312.0" prefWidth="160.0" />
+            <Pane fx:id="sourceAndTotal" layoutX="667.0" layoutY="44.0" prefHeight="419.0" prefWidth="325.0">
+               <children>
+                  <ScrollPane fx:id="sourceField" prefHeight="345.0" prefWidth="322.0" />
+                  <Pane fx:id="totalPane" layoutY="345.0" prefHeight="75.0" prefWidth="322.0">
+                     <children>
+                        <Label fx:id="sourceTotal" layoutX="46.0" layoutY="14.0" prefHeight="48.0" prefWidth="73.0" text="Итого:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="salaryTotal" layoutX="125.0" layoutY="11.0" prefHeight="54.0" prefWidth="172.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane layoutX="401.0" layoutY="392.0" prefHeight="63.0" prefWidth="257.0">
+               <children>
+                  <Label layoutX="1.0" layoutY="3.0" prefHeight="63.0" prefWidth="103.0" text="Остататок:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="balance" layoutX="118.0" layoutY="5.0" prefHeight="54.0" prefWidth="136.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
       </children>
     </AnchorPane>
   </children>

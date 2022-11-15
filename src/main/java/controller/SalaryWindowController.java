@@ -6,26 +6,26 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import salary.SalarySource;
-import salary.WPanel;
+import salary.SalaryWindow;
 import salary.Worker;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
-public class SalaryWindowController {
+public class SalaryWindowController implements Initializable {
     @FXML
     private Button buttonAdd;
     @FXML
@@ -41,7 +41,13 @@ public class SalaryWindowController {
     @FXML
     private static ScrollPane scrollPane;
     @FXML
-    private static ScrollPane salaryField;
+    private static ScrollPane sourceField;
+    @FXML
+    private Label salaryTotal;
+    @FXML
+    private Label sourceTotal;
+    @FXML
+    private Pane sourceAndTotal;
 
     public SalaryWindowController() {
     }
@@ -99,8 +105,14 @@ public class SalaryWindowController {
                 Stage stage = (Stage)sourceSave.getScene().getWindow();
                 stage.close();
 
-//                Stage stage1 = (Stage)sourceSave.getScene().getWindow();
-//                sourceSave.setOnAction(event -> stage1.fireEvent(new WindowEvent(stage1, WindowEvent.WINDOW_CLOSE_REQUEST)));;
+//                SalaryWindow.sP.setContent(new VBox());
+
+                try {
+                    SalarySource.updateSourceAndTotal();
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
         });
     }
@@ -122,7 +134,17 @@ public class SalaryWindowController {
         return workers;
     }
 
-    public static void showAllWorkers(ArrayList<Worker> workersList) {
-        new WPanel(workersList, new ScrollPane());
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                // Call update method for every 2 sec.
+                update();
+            }
+        };
+    }
+    public void update(){
+        sourceTotal.setText("This Label was updated :)");
     }
 }

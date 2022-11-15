@@ -11,6 +11,9 @@ public class Worker {
     private String name;
     private String surname;
     private double salary;
+//    private double percentageOfTheSumOfAllSources;
+//    private double salaryFromTheSource;
+//    private double totalSalary;
     private int numberOfDaysMissed;
 
     public String getName() {
@@ -53,6 +56,30 @@ public class Worker {
     public void setNumberOfDaysMissed(int numberOfDaysMissed) {
         this.numberOfDaysMissed = numberOfDaysMissed;
     }
+
+//    public double getPercentageOfTheSumOfAllSources() {
+//        return percentageOfTheSumOfAllSources;
+//    }
+//
+//    public void setPercentageOfTheSumOfAllSources(double percentageOfTheSumOfAllSources) {
+//        this.percentageOfTheSumOfAllSources = percentageOfTheSumOfAllSources;
+//    }
+//
+//    public double getSalaryFromTheSource() {
+//        return salaryFromTheSource;
+//    }
+//
+//    public void setSalaryFromTheSource(double salaryFromTheSource) {
+//        this.salaryFromTheSource = salaryFromTheSource;
+//    }
+//
+//    public double getTotalSalary() {
+//        return totalSalary;
+//    }
+//
+//    public void setTotalSalary(double totalSalary) {
+//        this.totalSalary = totalSalary;
+//    }
 
     @Override
     public boolean equals(Object o) {

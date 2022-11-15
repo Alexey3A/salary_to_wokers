@@ -9,6 +9,6 @@
         <module name="salary_to_wokers" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="18" />
+    <bytecodeTargetLevel target="19" />
   </component>
 </project>

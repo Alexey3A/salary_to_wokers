@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TotalSalaryOfWorker {
-    private double[] sourceSalary;
+    /*private double[] sourceSalary;
     private double sourceTotal;
     private double salaryFund;
     private Worker worker;
@@ -59,5 +59,5 @@ public class TotalSalaryOfWorker {
 
     public double totalSalaryOfWorker(List<Double> salaryFromTheSource){
         return salaryFromTheSource.stream().mapToDouble(Double::doubleValue).sum();
-    }
+    }*/
 }
