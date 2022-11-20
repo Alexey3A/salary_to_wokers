@@ -55,8 +55,8 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="500.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
       <children>
-            <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="44.0" prefHeight="345.0" prefWidth="647.0" />
-            <Button fx:id="buttonAdd" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#onClickButtonAdd" text="Добавить работника">
+            <ScrollPane fx:id="workerField" layoutX="14.0" layoutY="44.0" prefHeight="345.0" prefWidth="647.0" />
+            <Button fx:id="buttonAdd" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#addWorker" onMouseClicked="#addWorker" text="Добавить работника">
                <font>
                   <Font size="11.0" />
                </font>

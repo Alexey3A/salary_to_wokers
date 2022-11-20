@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-public class SalaryWindowController implements Initializable {
+public class SalaryWindowController {
     @FXML
     private Button buttonAdd;
     @FXML
@@ -33,9 +33,17 @@ public class SalaryWindowController implements Initializable {
     @FXML
     private Button sourceSave;
     @FXML
+    private Button saveWorker;
+    @FXML
     private TextArea sourceName;
     @FXML
     private TextField sourceSum;
+    @FXML
+    private TextField surnameWorker;
+    @FXML
+    private TextField nameWorker;
+    @FXML
+    private TextField salaryWorker;
     @FXML
     private static VBox box;
     @FXML
@@ -52,14 +60,14 @@ public class SalaryWindowController implements Initializable {
     public SalaryWindowController() {
     }
 
-    public void onClickButtonAdd() {
+    public void addWorker() {
         buttonAdd.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("../new_worker.fxml"));
                 try {
-                    Scene scene = new Scene(fxmlLoader.load(), 300, 500);
+                    Scene scene = new Scene(fxmlLoader.load(), 300, 300);
                     Stage stage = new Stage();
                     stage.setTitle("Сведения о работнике");
                     stage.setScene(scene);
@@ -67,6 +75,28 @@ public class SalaryWindowController implements Initializable {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+            }
+        });
+    }
+
+    public void saveWorker(){
+        saveWorker.setOnAction(actionEvent -> {
+            Worker worker = new Worker();
+            worker.setSurname(surnameWorker.getText());
+            worker.setName(nameWorker.getText());
+            worker.setSalary(Double.parseDouble(salaryWorker.getText()));
+            try {
+                worker.addAnWorker(worker);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Stage stage = (Stage) saveWorker.getScene().getWindow();
+            stage.close();
+
+            try {
+                Worker.updateWorkerAndSalary();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
             }
         });
     }
@@ -102,10 +132,8 @@ public class SalaryWindowController implements Initializable {
                 } catch (FileNotFoundException | JsonProcessingException e) {
                     throw new RuntimeException(e);
                 }
-                Stage stage = (Stage)sourceSave.getScene().getWindow();
+                Stage stage = (Stage) sourceSave.getScene().getWindow();
                 stage.close();
-
-//                SalaryWindow.sP.setContent(new VBox());
 
                 try {
                     SalarySource.updateSourceAndTotal();
@@ -132,19 +160,5 @@ public class SalaryWindowController implements Initializable {
         }
         scanner.close();
         return workers;
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                // Call update method for every 2 sec.
-                update();
-            }
-        };
-    }
-    public void update(){
-        sourceTotal.setText("This Label was updated :)");
     }
 }

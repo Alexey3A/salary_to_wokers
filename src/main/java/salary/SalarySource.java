@@ -5,14 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 public class SalarySource {
     private String salarySourceName;
@@ -53,10 +51,10 @@ public class SalarySource {
 
     public static void updateSourceAndTotal() throws FileNotFoundException {
 //        Pane pane = new Pane();
-        double salaryTotal = 0;
+        SalaryWindow.salaryTotal = 0;
         VBox sourcesContainer = new VBox();
         for (SalarySource salarySource : SalaryWindow.getAllSalarySources()) {
-            salaryTotal += salarySource.getSalarySourceSum();
+            SalaryWindow.salaryTotal += salarySource.getSalarySourceSum();
             HBox panel = new HBox();
             Label label = new Label(salarySource.getSalarySourceName() + " : "
                     + salarySource.getSalarySourceSum());
@@ -68,9 +66,12 @@ public class SalarySource {
             panel.getChildren().add(button2);
             sourcesContainer.getChildren().add(panel);
         }
-        SalaryWindow.sP.setContent(sourcesContainer);
+        SalaryWindow.sourceField.setContent(sourcesContainer);
 
-        SalaryWindow.salaryTotalLabel.setText(Double.toString(salaryTotal));
+        SalaryWindow.salaryTotal = SalaryOfWorker.rounding(SalaryWindow.salaryTotal);
+        SalaryWindow.salaryTotalLabel.setText(Double.toString(SalaryWindow.salaryTotal));
+
+        Worker.updateWorkerAndSalary();
 //        pane.getChildren().addAll(sourcesContainer, )
     }
 }

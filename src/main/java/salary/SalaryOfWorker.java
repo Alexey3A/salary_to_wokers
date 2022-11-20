@@ -1,13 +1,15 @@
 package salary;
 
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class SalaryOfWorker {
 
     public static double salaryFund() throws FileNotFoundException {
         double salaryFund = 0;
-        ArrayList<Worker> workers = SalaryWindow.getAllWorkers();
+        ArrayList<Worker> workers = Worker.getAllWorkers();
         for (Worker w : workers) {
             salaryFund += w.getSalary();
         }
@@ -34,5 +36,11 @@ public class SalaryOfWorker {
             totalSalaryOfWorker += salary;
         }
         return totalSalaryOfWorker;
+    }
+
+    public static double rounding(double d){
+        BigDecimal balanceForLabelBigDecimal = new BigDecimal(d);
+        balanceForLabelBigDecimal = balanceForLabelBigDecimal.setScale(2, RoundingMode.HALF_EVEN);
+        return balanceForLabelBigDecimal.doubleValue();
     }
 }

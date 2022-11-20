@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.GridPane?>
 
-<GridPane
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-</GridPane>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SalaryWindowController">
+   <children>
+      <TextField fx:id="surnameWorker" layoutX="27.0" layoutY="61.0" prefHeight="37.0" prefWidth="246.0" promptText="фамилия">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="nameWorker" layoutX="27.0" layoutY="115.0" prefHeight="37.0" prefWidth="246.0" promptText="имя">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="salaryWorker" layoutX="147.0" layoutY="168.0" prefHeight="37.0" prefWidth="126.0" promptText="зп">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <Button fx:id="saveWorker" layoutX="81.0" layoutY="232.0" mnemonicParsing="false" onAction="#saveWorker" prefHeight="37.0" prefWidth="126.0" text="Сохранить">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
