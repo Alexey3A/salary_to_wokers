@@ -31,16 +31,19 @@ public class SalaryOfWorker {
     }
 
     public static double totalSalaryOfWorker(Worker worker) throws FileNotFoundException {
-        double totalSalaryOfWorker = 0;
-        for(Double salary : salaryOfWorkerFromTheSource(worker)){
-            totalSalaryOfWorker += salary;
-        }
-        return totalSalaryOfWorker;
+//        double totalSalaryOfWorker = 0;
+//        for(Double salary : salaryOfWorkerFromTheSource(worker)){
+//            totalSalaryOfWorker += salary;
+//        }
+//        System.out.println(salaryOfWorkerFromTheSource(worker).stream().reduce(0.0,(x,y) -> x+y));
+        return salaryOfWorkerFromTheSource(worker).stream().reduce(0.0,(x,y) -> x+y);
+
+//        return totalSalaryOfWorker;
     }
 
     public static double rounding(double d){
         BigDecimal balanceForLabelBigDecimal = new BigDecimal(d);
-        balanceForLabelBigDecimal = balanceForLabelBigDecimal.setScale(2, RoundingMode.HALF_EVEN);
+        balanceForLabelBigDecimal = balanceForLabelBigDecimal.setScale(2, RoundingMode.HALF_UP);
         return balanceForLabelBigDecimal.doubleValue();
     }
 }

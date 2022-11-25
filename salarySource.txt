@@ -1,8 +1,5 @@
-{"salarySourceName":"Source 1","salarySourceSum":152.5}
-{"salarySourceName":"Source 1","salarySourceSum":152.5}
 {"salarySourceName":"Source 2","salarySourceSum":330.0}
 {"salarySourceName":"Sourse 3","salarySourceSum":790.0}
-{"salarySourceName":"Source 4 source 4 source 4 sourse 4 source 4 source 4","salarySourceSum":1100.3}
 {"salarySourceName":"source 5","salarySourceSum":970.0}
 {"salarySourceName":"source 6","salarySourceSum":520.8}
 {"salarySourceName":"source 6","salarySourceSum":520.8}
@@ -32,3 +29,4 @@
 {"salarySourceName":"source 29","salarySourceSum":1000.0}
 {"salarySourceName":"source 30","salarySourceSum":1000.0}
 {"salarySourceName":"source 31","salarySourceSum":1000.0}
+{"salarySourceName":"source 32","salarySourceSum":1000.0}

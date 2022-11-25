@@ -4,11 +4,12 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.io.*;
 import java.util.*;
@@ -92,7 +93,7 @@ public class Worker {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Worker worker = (Worker) o;
-        return Double.compare(worker.salary, salary) == 0 && name.equals(worker.name) && surname.equals(worker.surname);
+        return name.equals(worker.name) && surname.equals(worker.surname);
     }
 
     @Override
@@ -145,9 +146,10 @@ public class Worker {
         printWriter2.close();
     }
 
-    public static void deleteAnWorker(Worker w, File file) throws FileNotFoundException
+    public static void deleteAnWorker(Worker w) throws FileNotFoundException
             , JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
+        File file = new File("workers.txt");
         Set<Worker> workerSet = new HashSet<>();
         Scanner scanner = new Scanner(new FileInputStream(file));
         while (scanner.hasNext()) {
@@ -172,37 +174,46 @@ public class Worker {
     //TODO
     public static void updateWorkerAndSalary() throws FileNotFoundException {
         VBox workersContainer = new VBox();
-        for (Worker w : getAllWorkers()) {
+        List<Worker> workerList = getAllWorkers();
+        for (Worker w : workerList) {
             Label label1 = new Label(w.getSurname());
             Label label2 = new Label(w.getName());
             Label label3 = new Label(Double.toString(w.getSalary()));
             double totalSalaryOfWorker = SalaryOfWorker.totalSalaryOfWorker(w);
             Label label4 = new Label(Double.toString(SalaryOfWorker.rounding(totalSalaryOfWorker)));
             SalaryWindow.balanceForLabel += totalSalaryOfWorker;
+            updateWorkerInFile(w, label4);
+
             TextField zpNow = new TextField();
-
             zpNow.setOnAction(actionEvent -> {
-//                label4.setText(zpNow.getText());
+                double previousSalary = Double.parseDouble(label4.getText());
+                double newSalary = Double.parseDouble(zpNow.getText());
+                double balance = Double.parseDouble(SalaryWindow.balance.getText());
+                double newBalance = balance + previousSalary - newSalary;
+                newBalance = SalaryOfWorker.rounding(newBalance);
+                label4.setText(zpNow.getText());
+                SalaryWindow.balance.setText(Double.toString(newBalance));
+                if (newBalance < 0) {
+                    SalaryWindow.balance.setBackground(new Background
+                            (new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+                }
+                zpNow.clear();
+                updateWorkerInFile(w, label4);
+            });
 
-                //TODO
-
-                /*double sum = 0;
+            Button button = new Button("Удалить");
+            button.setOnAction(actionEvent -> {
                 try {
-                    for (Worker worker1 : Worker.getAllWorkers()) {
-                        sum += worker1.getSalary();
-                    }
-                } catch (FileNotFoundException e) {
+                    deleteAnWorker(w);
+                } catch (FileNotFoundException | JsonProcessingException e) {
                     throw new RuntimeException(e);
                 }
-                SalaryWindow.balance.setText(Double.toString(SalaryOfWorker.rounding(sum)));
                 try {
                     updateWorkerAndSalary();
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
-                }*/
+                }
             });
-
-            Button button = new Button("Рассчитать");
             label1.setMinWidth(130);
             label2.setMinWidth(130);
             label3.setMinWidth(60);
@@ -219,5 +230,23 @@ public class Worker {
         SalaryWindow.balance.setText(Double.toString(SalaryWindow.balanceForLabel));
 
         SalaryWindow.workerField.setContent(workersContainer);
+    }
+
+    public static void updateWorkerInFile(Worker w, Label label) {
+        Worker worker = new Worker();
+        worker.setName(w.getName());
+        worker.setSurname(w.getSurname());
+        worker.setSalary(w.getSalary());
+        worker.setTotalSalary(Double.parseDouble(label.getText()));
+        try {
+            deleteAnWorker(w);
+        } catch (FileNotFoundException | JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            worker.addAnWorker(worker);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
