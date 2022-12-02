@@ -2,10 +2,14 @@ package salary;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 
 import java.io.*;
 import java.util.*;
@@ -13,6 +17,7 @@ import java.util.*;
 public class SalarySource {
     private String salarySourceName;
     private double salarySourceSum;
+
     public SalarySource() {
     }
 
@@ -50,15 +55,14 @@ public class SalarySource {
 
         SalaryWindow.salaryTotal = 0;
         VBox sourcesContainer = new VBox();
-        for (SalarySource salarySource : SalaryWindow.getAllSalarySources()) {
+        for (SalarySource salarySource : getAllSalarySources()) {
             SalaryWindow.salaryTotal += salarySource.getSalarySourceSum();
             HBox panel = new HBox();
             Label label = new Label(salarySource.getSalarySourceName() + " : "
                     + salarySource.getSalarySourceSum());
-            Button removeAnSalarySource = new Button("Удалить");
+            Button removeButton = new Button("Удалить");
 
-            removeAnSalarySource.setOnAction(actionEvent -> {
-                System.out.println("privet");
+            removeButton.setOnAction(actionEvent -> {
                 try {
                     deleteAnSalarySource(salarySource);
                 } catch (FileNotFoundException | JsonProcessingException e) {
@@ -70,11 +74,23 @@ public class SalarySource {
                     throw new RuntimeException(e);
                 }
             });
-            Button button2 = new Button("Изменить");
+            Button updateButton = new Button("Изменить");
+
+            label.setMinWidth(130);
+            removeButton.setMinWidth(50);
+            removeButton.setFont(new Font(10));
+            updateButton.setMinWidth(50);
+            updateButton.setFont(new Font(10));
 
             panel.getChildren().add(label);
-            panel.getChildren().add(removeAnSalarySource);
-            panel.getChildren().add(button2);
+            panel.getChildren().add(removeButton);
+            panel.getChildren().add(updateButton);
+            Insets insets = new Insets(3,2,2,3);
+            HBox.setMargin(label, new Insets(6,0,0,5));
+            HBox.setMargin(removeButton, insets);
+            HBox.setMargin(updateButton, insets);
+            VBox.setMargin(panel, new Insets(5, 3, 5, 5));
+
             sourcesContainer.getChildren().add(panel);
         }
         SalaryWindow.sourceField.setContent(sourcesContainer);
@@ -85,7 +101,7 @@ public class SalarySource {
         Worker.updateWorkerAndSalary();
     }
 
-    public static void deleteAnSalarySource (SalarySource salarySource) throws FileNotFoundException, JsonProcessingException {
+    public static void deleteAnSalarySource(SalarySource salarySource) throws FileNotFoundException, JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File("salarySource.txt");
         List<SalarySource> salarySourceList = new ArrayList<>();
@@ -94,7 +110,6 @@ public class SalarySource {
             String s = scanner.nextLine();
             try {
                 SalarySource source = objectMapper.readValue(s, SalarySource.class);
-                System.out.println(salarySource + " --- " + source);
                 if (!salarySource.equals(source)) {
                     salarySourceList.add(source);
                 }
@@ -104,13 +119,28 @@ public class SalarySource {
         }
         scanner.close();
 
-        salarySourceList.forEach(System.out::println);
-
         PrintWriter printWriter = new PrintWriter(file);
         for (SalarySource source : salarySourceList) {
             printWriter.println(objectMapper.writeValueAsString(source));
         }
         printWriter.close();
+    }
+
+    public static ArrayList<SalarySource> getAllSalarySources() throws FileNotFoundException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ArrayList<SalarySource> sources = new ArrayList<>();
+        Scanner scanner = new Scanner(new FileInputStream("salarySource.txt"));
+        while (scanner.hasNext()) {
+            String s = scanner.nextLine();
+            try {
+                SalarySource source = objectMapper.readValue(s, SalarySource.class);
+                sources.add(source);
+            } catch (Exception e) {
+                System.out.println("Exception!!!");
+            }
+        }
+        scanner.close();
+        return sources;
     }
 
     @Override

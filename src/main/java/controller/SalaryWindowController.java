@@ -43,6 +43,8 @@ public class SalaryWindowController {
     @FXML
     private TextField nameWorker;
     @FXML
+    private TextField patronymicWorker;
+    @FXML
     private TextField salaryWorker;
     @FXML
     private static VBox box;
@@ -84,6 +86,7 @@ public class SalaryWindowController {
             Worker worker = new Worker();
             worker.setSurname(surnameWorker.getText());
             worker.setName(nameWorker.getText());
+            worker.setPatronymic(patronymicWorker.getText());
             worker.setSalary(Double.parseDouble(salaryWorker.getText()));
             try {
                 worker.addAnWorker(worker);

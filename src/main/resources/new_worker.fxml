@@ -5,15 +5,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SalaryWindowController">
    <children>
-      <TextField fx:id="surnameWorker" layoutX="27.0" layoutY="61.0" prefHeight="37.0" prefWidth="246.0" promptText="фамилия">
+      <TextField fx:id="surnameWorker" layoutX="27.0" layoutY="27.0" prefHeight="37.0" prefWidth="246.0" promptText="фамилия">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="nameWorker" layoutX="27.0" layoutY="115.0" prefHeight="37.0" prefWidth="246.0" promptText="имя">
+      <TextField fx:id="nameWorker" layoutX="27.0" layoutY="74.0" prefHeight="37.0" prefWidth="246.0" promptText="имя">
          <font>
             <Font size="16.0" />
          </font>
@@ -28,5 +27,10 @@
             <Font size="16.0" />
          </font>
       </Button>
+      <TextField fx:id="patronymicWorker" layoutX="27.0" layoutY="121.0" prefHeight="37.0" prefWidth="246.0" promptText="отчество">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
    </children>
 </Pane>

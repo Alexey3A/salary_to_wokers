@@ -21,16 +21,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SalaryWindow extends Application {
-    Worker worker;
-    SalarySource salarySource;
     public static ArrayList<Worker> workers;
-    public static ArrayList<SalarySource> salarySourcesList;
     public static VBox root;
     public static ScrollPane workerField;
     public static ScrollPane sourceField;
     public static Label salaryTotalLabel;
     public static Label balance;
-    public static Pane sourceAndTotal;
     public static double salaryTotal;
     public static double balanceForLabel;
 
@@ -38,10 +34,6 @@ public class SalaryWindow extends Application {
     public void start(Stage stage) throws Exception {
 
         workers = Worker.getAllWorkers();
-        salarySourcesList = getAllSalarySources();
-
-        AnchorPane anchorPane = new AnchorPane();
-        ScrollPane scrollPane = new ScrollPane();
 
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("../gui_swing.fxml"));
@@ -53,8 +45,6 @@ public class SalaryWindow extends Application {
         salaryTotalLabel = (Label) root.lookup("#salaryTotal");
         balance = (Label) root.lookup("#balance");
 
-        workers = Worker.getAllWorkers();
-
         SalarySource.updateSourceAndTotal();
 
         Scene scene = new Scene(root, 1000, 500);
@@ -63,22 +53,6 @@ public class SalaryWindow extends Application {
         stage.show();
     }
 
-    public static ArrayList<SalarySource> getAllSalarySources() throws FileNotFoundException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        ArrayList<SalarySource> sources = new ArrayList<>();
-        Scanner scanner = new Scanner(new FileInputStream("salarySource.txt"));
-        while (scanner.hasNext()) {
-            String s = scanner.nextLine();
-            try {
-                SalarySource source = objectMapper.readValue(s, SalarySource.class);
-                sources.add(source);
-            } catch (Exception e) {
-                System.out.println("Exception!!!");
-            }
-        }
-        scanner.close();
-        return sources;
-    }
 
     public static void main(String[] args) {
         launch();

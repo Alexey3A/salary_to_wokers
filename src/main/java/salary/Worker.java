@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 
 import java.io.*;
 import java.util.*;
@@ -17,6 +19,7 @@ import java.util.*;
 public class Worker {
     private String name;
     private String surname;
+    private String patronymic;
     private double salary;
     //    private double percentageOfTheSumOfAllSources;
 //    private double salaryFromTheSource;
@@ -35,6 +38,12 @@ public class Worker {
         this.surname = surname;
         this.salary = salary;
     }
+    public Worker(String name, String surname, String patronymic, double salary) {
+        this.name = name;
+        this.surname = surname;
+        this.salary = salary;
+        this.patronymic = patronymic;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -46,6 +55,14 @@ public class Worker {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
     }
 
     public double getSalary() {
@@ -196,12 +213,15 @@ public class Worker {
                 if (newBalance < 0) {
                     SalaryWindow.balance.setBackground(new Background
                             (new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-                }
+                } else SalaryWindow.balance.setBackground(new Background(
+                        new BackgroundFill(new Color(0,0,0,0),CornerRadii.EMPTY,Insets.EMPTY)));
+
                 zpNow.clear();
                 updateWorkerInFile(w, label4);
             });
 
             Button button = new Button("Удалить");
+            button.setFont(new Font(10));
             button.setOnAction(actionEvent -> {
                 try {
                     deleteAnWorker(w);
@@ -214,14 +234,26 @@ public class Worker {
                     throw new RuntimeException(e);
                 }
             });
+
+            Insets insets = new Insets(3,2,2,3);
             label1.setMinWidth(130);
+            HBox.setMargin(label1, insets);
             label2.setMinWidth(130);
+            HBox.setMargin(label2, insets);
             label3.setMinWidth(60);
+            HBox.setMargin(label3, insets);
             label4.setMinWidth(60);
+            HBox.setMargin(label4, insets);
             zpNow.setMaxWidth(80);
-            button.setMinWidth(80);
+            button.setMinWidth(50);
+            HBox.setMargin(button, new Insets(0,0,0,30));
             HBox hBox = new HBox(15, label1, label2, label3, zpNow, label4, button);
             workersContainer.getChildren().add(hBox);
+
+            Line line = new Line(0, 0, 635, 0);
+            line.setStrokeWidth(5);
+            line.setStroke(Color.WHITE);
+            workersContainer.getChildren().add(line);
         }
 
         double d = Double.parseDouble(SalaryWindow.salaryTotalLabel.getText());

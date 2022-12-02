@@ -22,7 +22,7 @@ public class SalaryOfWorker {
 /**/
     public static ArrayList<Double> salaryOfWorkerFromTheSource(Worker worker) throws FileNotFoundException {
         ArrayList<Double> salaryOfWorkerFromTheSource = new ArrayList<>();
-        for (SalarySource salarySource : SalaryWindow.getAllSalarySources()){
+        for (SalarySource salarySource : SalarySource.getAllSalarySources()){
             salaryOfWorkerFromTheSource.add(
                     (salarySource.getSalarySourceSum()*percentageOffTheSumOffAllSources(worker))/100
             );
