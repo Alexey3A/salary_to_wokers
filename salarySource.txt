@@ -1,3 +1,4 @@
 {"salarySourceName":"Sourse 3","salarySourceSum":790.0}
 {"salarySourceName":"Source 1","salarySourceSum":355.0}
 {"salarySourceName":"Source 2","salarySourceSum":890.0}
+{"salarySourceName":"sourse 4","salarySourceSum":550.0}
